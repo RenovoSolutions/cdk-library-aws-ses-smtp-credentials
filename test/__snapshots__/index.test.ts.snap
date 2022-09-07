@@ -1,0 +1,310 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot 1`] = `
+Object {
+  "Parameters": Object {
+    "BootstrapVersion": Object {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": Object {
+    "SesSmtpCredentialsOnEventHandlerBEA768EC": Object {
+      "DependsOn": Array [
+        "SesSmtpCredentialsRole6AB00532",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "71154ed5bf6922b5d96b32ae1b3fea1d56f5874382ad8dc7e4421d5ed827ae52.zip",
+        },
+        "Handler": "index.on_event",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "SesSmtpCredentialsRole6AB00532",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.9",
+        "Timeout": 30,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "SesSmtpCredentialsProviderframeworkonEvent771E2E12": Object {
+      "DependsOn": Array [
+        "SesSmtpCredentialsProviderframeworkonEventServiceRoleDefaultPolicy7987CCED",
+        "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB",
+      ],
+      "Properties": Object {
+        "Code": Object {
+          "S3Bucket": Object {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "e7c95e1a12d903d913ebdd526c735f1ac58b2024882a5562110221fe685ebe85.zip",
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (TestStack/SesSmtpCredentials/Provider)",
+        "Environment": Object {
+          "Variables": Object {
+            "USER_ON_EVENT_FUNCTION_ARN": Object {
+              "Fn::GetAtt": Array [
+                "SesSmtpCredentialsOnEventHandlerBEA768EC",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "Role": Object {
+          "Fn::GetAtt": Array [
+            "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs14.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Fn::Join": Array [
+              "",
+              Array [
+                "arn:",
+                Object {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "SesSmtpCredentialsProviderframeworkonEventServiceRoleDefaultPolicy7987CCED": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "SesSmtpCredentialsOnEventHandlerBEA768EC",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Fn::Join": Array [
+                    "",
+                    Array [
+                      Object {
+                        "Fn::GetAtt": Array [
+                          "SesSmtpCredentialsOnEventHandlerBEA768EC",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SesSmtpCredentialsProviderframeworkonEventServiceRoleDefaultPolicy7987CCED",
+        "Roles": Array [
+          Object {
+            "Ref": "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "SesSmtpCredentialsRole6AB00532": Object {
+      "Properties": Object {
+        "AssumeRolePolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": Array [
+          Object {
+            "Ref": "SesSmtpCredentialsSecretsManagerPolicyC597B13A",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "SesSmtpCredentialsSecretArn7500943E": Object {
+      "DeletionPolicy": "Delete",
+      "DependsOn": Array [
+        "SesSmtpCredentialsUserE9E5FC46",
+      ],
+      "Properties": Object {
+        "Override": "true",
+        "Region": Object {
+          "Ref": "AWS::Region",
+        },
+        "SecretName": "TestStackSesSmtpCredentials1AD8F67EexampleUser",
+        "ServiceToken": Object {
+          "Fn::GetAtt": Array [
+            "SesSmtpCredentialsProviderframeworkonEvent771E2E12",
+            "Arn",
+          ],
+        },
+        "UserName": "exampleUser",
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "SesSmtpCredentialsSecretsManagerPolicyC597B13A": Object {
+      "Properties": Object {
+        "Description": "",
+        "Path": "/",
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "secretsmanager:PutSecretValue",
+                "secretsmanager:CreateSecret",
+                "secretsmanager:DeleteSecret",
+                "secretsmanager:UpdateSecret",
+                "secretsmanager:TagResource",
+              ],
+              "Effect": "Allow",
+              "Resource": Object {
+                "Fn::Join": Array [
+                  "",
+                  Array [
+                    "arn:aws:secretsmanager:",
+                    Object {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":secret:TestStackSesSmtpCredentials1AD8F67EexampleUser-*",
+                  ],
+                ],
+              },
+              "Sid": "SecretsManagerPolicy",
+            },
+            Object {
+              "Action": Array [
+                "iam:CreateAccessKey",
+                "iam:DeleteAccessKey",
+                "iam:ListAccessKeys",
+              ],
+              "Condition": Object {
+                "StringEquals": Object {
+                  "iam:ResourceTag/CfnStackIdForSesCredLibrary": Object {
+                    "Ref": "AWS::StackId",
+                  },
+                },
+              },
+              "Effect": "Allow",
+              "Resource": "*",
+              "Sid": "IamAllowKeyManagementPolicy",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::ManagedPolicy",
+    },
+    "SesSmtpCredentialsSesSendPolicyDCC9F0D8": Object {
+      "Properties": Object {
+        "Description": "",
+        "Path": "/",
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": "ses:SendRawEmail",
+              "Effect": "Allow",
+              "Resource": "*",
+              "Sid": "SesAllowSendPolicy",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::ManagedPolicy",
+    },
+    "SesSmtpCredentialsUserE9E5FC46": Object {
+      "Properties": Object {
+        "ManagedPolicyArns": Array [
+          Object {
+            "Ref": "SesSmtpCredentialsSesSendPolicyDCC9F0D8",
+          },
+        ],
+        "Tags": Array [
+          Object {
+            "Key": "CfnStackIdForSesCredLibrary",
+            "Value": Object {
+              "Ref": "AWS::StackId",
+            },
+          },
+        ],
+        "UserName": "exampleUser",
+      },
+      "Type": "AWS::IAM::User",
+    },
+  },
+  "Rules": Object {
+    "CheckBootstrapVersion": Object {
+      "Assertions": Array [
+        Object {
+          "Assert": Object {
+            "Fn::Not": Array [
+              Object {
+                "Fn::Contains": Array [
+                  Array [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  Object {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
