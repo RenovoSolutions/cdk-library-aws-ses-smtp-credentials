@@ -20,6 +20,10 @@ export interface SesSmtpCredentialsProps {
    * The name of the IAM user to create
    */
   readonly iamUserName: string;
+  /**
+   * The resource policy to apply to the resulting secret
+   */
+  readonly secretResourcePolicy?: iam.PolicyDocument;
 }
 
 export class SesSmtpCredentials extends Construct {
@@ -119,5 +123,12 @@ export class SesSmtpCredentials extends Construct {
     secret.node.addDependency(this.iamUser);
 
     this.secret = secretsmanager.Secret.fromSecretCompleteArn(this, 'Secret', secret.getAttString('SecretArn'));
+
+    if (props.secretResourcePolicy) {
+      new secretsmanager.CfnResourcePolicy(this, 'SecretResourcePolicy', {
+        secretId: this.secret.secretArn,
+        resourcePolicy: props.secretResourcePolicy.toString(),
+      });
+    }
   }
 }

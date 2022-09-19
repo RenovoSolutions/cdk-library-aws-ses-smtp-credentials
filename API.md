@@ -162,4 +162,19 @@ The name of the IAM user to create.
 ---
 
 
+---
+
+##### `secretResourcePolicy`<sup>Optional</sup> <a name="secretResourcePolicy" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.secretResourcePolicy"></a>
+
+```typescript
+public readonly secretResourcePolicy: PolicyDocument;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyDocument
+
+The resource policy to apply to the resulting secret.
+
+---
+
+
 
