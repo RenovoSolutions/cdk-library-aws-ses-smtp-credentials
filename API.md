@@ -146,6 +146,10 @@ const sesSmtpCredentialsProps: SesSmtpCredentialsProps = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.iamUserName">iamUserName</a></code> | <code>string</code> | The name of the IAM user to create. |
+| <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.kmsKey">kmsKey</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | The KMS key to use for the secret. |
+| <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.overwriteSecret">overwriteSecret</a></code> | <code>boolean</code> | If a secret already exists should it be overwritten? |
+| <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.restoreSecret">restoreSecret</a></code> | <code>boolean</code> | If a secret is pending deletion should it be restored? |
+| <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.secretResourcePolicy">secretResourcePolicy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyDocument</code> | The resource policy to apply to the resulting secret. |
 
 ---
 
@@ -158,6 +162,61 @@ public readonly iamUserName: string;
 - *Type:* string
 
 The name of the IAM user to create.
+
+---
+
+##### `kmsKey`<sup>Optional</sup> <a name="kmsKey" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.kmsKey"></a>
+
+```typescript
+public readonly kmsKey: IKey;
+```
+
+- *Type:* aws-cdk-lib.aws_kms.IKey
+- *Default:* default key
+
+The KMS key to use for the secret.
+
+---
+
+##### `overwriteSecret`<sup>Optional</sup> <a name="overwriteSecret" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.overwriteSecret"></a>
+
+```typescript
+public readonly overwriteSecret: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+If a secret already exists should it be overwritten?
+
+This helps in cases where cloudformation creates a secret successfully but it gets orphaned for some reason.
+
+---
+
+##### `restoreSecret`<sup>Optional</sup> <a name="restoreSecret" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.restoreSecret"></a>
+
+```typescript
+public readonly restoreSecret: boolean;
+```
+
+- *Type:* boolean
+- *Default:* true
+
+If a secret is pending deletion should it be restored?
+
+This helps in cases where cloudformation roll backs puts a secret in pending delete state.
+
+---
+
+##### `secretResourcePolicy`<sup>Optional</sup> <a name="secretResourcePolicy" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.secretResourcePolicy"></a>
+
+```typescript
+public readonly secretResourcePolicy: PolicyDocument;
+```
+
+- *Type:* aws-cdk-lib.aws_iam.PolicyDocument
+
+The resource policy to apply to the resulting secret.
 
 ---
 
