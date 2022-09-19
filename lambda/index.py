@@ -58,21 +58,19 @@ def clean_up_access_key(username, access_key_id):
     if e.response['Error']['Code'] == 'NoSuchEntity':
       print("Access key %s or user %s already deleted" % (access_key_id, username))
   
-def create_secret(props):
-  iam = boto3.client('iam')
-  
-  key_response = iam.create_access_key(UserName=props['UserName'])
-  
-  calculated_key = calculate_key(key_response['AccessKey']['SecretAccessKey'], props['Region'])
-
-  client = boto3.client('secretsmanager')
-
+def write_secret(props, key_response):
   try:
+    client = boto3.client('secretsmanager')
+    
+    calculated_key = calculate_key(key_response['AccessKey']['SecretAccessKey'], props['Region'])
+
     response = client.create_secret(
       Name=props['SecretName'],
       SecretString='{"SMTP_USERNAME": "%s", "SMTP_PASSWORD": "%s"}' % (key_response['AccessKey']['AccessKeyId'], calculated_key),
       Description='SMTP Credentials for SES',
+      KmsKeyId=props['KmsKeyId'],
     )
+
     return {
       'response': response,
       'accessKeyId': key_response['AccessKey']['AccessKeyId']
@@ -81,30 +79,37 @@ def create_secret(props):
     if e.response['Error']['Code'] == 'ResourceExistsException':
       if props['Override'] == 'true':
         print("Secret already exists, updating it")
-        return update_secret(props)
+        return write_updated_secret(props, key_response)
       else:
         print("Secret already exists and cant be written, cleaning up access key")
+        clean_up_access_key(props['UserName'], key_response['AccessKey']['AccessKeyId'])
+        raise e
+    elif e.response['Error']['Code'] == 'InvalidRequestException':
+      if 'secret with this name is already scheduled for deletion' in e.response['Error']['Message'] and props['Restore'] == 'true':
+        print('Secret already exists and is scheduled for deletion, restoring it')
+        client = boto3.client('secretsmanager')
+        client.restore_secret(SecretId=props['SecretName'])
+        write_updated_secret(props, key_response)
+      else:
+        print("Unknown error creating secret, cleaning up access key")
         clean_up_access_key(props['UserName'], key_response['AccessKey']['AccessKeyId'])
         raise e
     else:
       print("Unknown error creating secret, cleaning up access key")
       clean_up_access_key(props['UserName'], key_response['AccessKey']['AccessKeyId'])
       raise e
-
-def update_secret(props):
-  iam = boto3.client('iam')
   
-  key_response = iam.create_access_key(UserName=props['UserName'])
-  
-  calculated_key = calculate_key(key_response['AccessKey']['SecretAccessKey'], props['Region'])
-
-  client = boto3.client('secretsmanager')
-  
+def write_updated_secret(props, key_response):
   try:
+    client = boto3.client('secretsmanager')
+    
+    calculated_key = calculate_key(key_response['AccessKey']['SecretAccessKey'], props['Region'])
+
     response = client.update_secret(
       SecretId=props['SecretName'],
       SecretString='{"SMTP_USERNAME": "%s", "SMTP_PASSWORD": "%s"}' % (key_response['AccessKey']['AccessKeyId'], calculated_key),
       Description='SMTP Credentials for SES',
+      KmsKeyId=props['KmsKeyId'],
     )
 
     return {
@@ -112,9 +117,37 @@ def update_secret(props):
       'accessKeyId': key_response['AccessKey']['AccessKeyId']
     }
   except ClientError as e:
-    print("Unknown error updating secret, cleaning up access key: %s" % e.response['Error']['Code'])
-    clean_up_access_key(props['UserName'], key_response['AccessKey']['AccessKeyId'])
-    raise e
+    if e.response['Error']['Code'] == 'ResourceNotFoundException':
+      print("Secret not found, creating it")
+      return write_secret(props, key_response)
+    elif e.response['Error']['Code'] == 'InvalidRequestException':
+      if 'secret with this name is already scheduled for deletion' in e.response['Error']['Message'] and props['Restore'] == 'true':
+        print('Secret is scheduled for deletion, restoring it')
+        client = boto3.client('secretsmanager')
+        client.restore_secret(SecretId=props['SecretName'])
+        write_updated_secret(props, key_response)
+      else:
+        print("Unknown error updating secret, cleaning up access key: %s" % e.response['Error']['Code'])
+        clean_up_access_key(props['UserName'], key_response['AccessKey']['AccessKeyId'])
+        raise e
+    else:
+      print("Unknown error updating secret, cleaning up access key: %s" % e.response['Error']['Code'])
+      clean_up_access_key(props['UserName'], key_response['AccessKey']['AccessKeyId'])
+      raise e
+
+def create_secret(props):
+  iam = boto3.client('iam')
+  
+  key_response = iam.create_access_key(UserName=props['UserName'])
+  
+  return write_secret(props, key_response)
+
+def update_secret(props):
+  iam = boto3.client('iam')
+  
+  key_response = iam.create_access_key(UserName=props['UserName'])
+
+  return write_updated_secret(props, key_response)
     
 def on_event(event, context):
   print(event)

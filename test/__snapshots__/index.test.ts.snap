@@ -19,7 +19,7 @@ Object {
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "71154ed5bf6922b5d96b32ae1b3fea1d56f5874382ad8dc7e4421d5ed827ae52.zip",
+          "S3Key": "7224866b0a593c509766adc7e7d3386a8672fd9077269c679594700a955d44d1.zip",
         },
         "Handler": "index.on_event",
         "Role": Object {
@@ -169,10 +169,12 @@ Object {
         "SesSmtpCredentialsUserE9E5FC46",
       ],
       "Properties": Object {
-        "Override": "true",
+        "KmsKeyId": "aws/secretsmanager",
+        "Override": true,
         "Region": Object {
           "Ref": "AWS::Region",
         },
+        "Restore": true,
         "SecretName": "TestStackSesSmtpCredentials1AD8F67EexampleUser",
         "ServiceToken": Object {
           "Fn::GetAtt": Array [
@@ -184,6 +186,57 @@ Object {
       },
       "Type": "AWS::CloudFormation::CustomResource",
       "UpdateReplacePolicy": "Delete",
+    },
+    "SesSmtpCredentialsSecretResourcePolicyFA18D550": Object {
+      "Properties": Object {
+        "ResourcePolicy": Object {
+          "Statement": Array [
+            Object {
+              "Action": "secretsmanager:GetSecretValue",
+              "Condition": Object {
+                "ArnLike": Object {
+                  "aws:SourceArn": Object {
+                    "Fn::Join": Array [
+                      "",
+                      Array [
+                        "arn:aws:rds:",
+                        Object {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        Object {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":og:teststack*",
+                      ],
+                    ],
+                  },
+                },
+                "StringEquals": Object {
+                  "aws:sourceAccount": Array [
+                    Object {
+                      "Ref": "AWS::AccountId",
+                    },
+                  ],
+                },
+              },
+              "Effect": "Allow",
+              "Principal": Object {
+                "Service": "rds.amazonaws.com",
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "SecretId": Object {
+          "Fn::GetAtt": Array [
+            "SesSmtpCredentialsSecretArn7500943E",
+            "SecretArn",
+          ],
+        },
+      },
+      "Type": "AWS::SecretsManager::ResourcePolicy",
     },
     "SesSmtpCredentialsSecretsManagerPolicyC597B13A": Object {
       "Properties": Object {
@@ -198,6 +251,7 @@ Object {
                 "secretsmanager:DeleteSecret",
                 "secretsmanager:UpdateSecret",
                 "secretsmanager:TagResource",
+                "secretsmanager:RestoreSecret",
               ],
               "Effect": "Allow",
               "Resource": Object {
