@@ -158,7 +158,7 @@ export class SesSmtpCredentials extends Construct {
         Region: Stack.of(this).region,
         Override: props.overwriteSecret ?? true,
         Restore: props.restoreSecret ?? true,
-        KmsKeyId: props.kmsKey == undefined ? 'aws/secretsmanager' : props.kmsKey.keyId,
+        KmsKeyId: props.kmsKey == undefined ? 'alias/aws/secretsmanager' : props.kmsKey.keyId,
       },
     });
 

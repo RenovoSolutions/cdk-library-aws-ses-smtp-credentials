@@ -169,7 +169,7 @@ Object {
         "SesSmtpCredentialsUserE9E5FC46",
       ],
       "Properties": Object {
-        "KmsKeyId": "aws/secretsmanager",
+        "KmsKeyId": "alias/aws/secretsmanager",
         "Override": true,
         "Region": Object {
           "Ref": "AWS::Region",
