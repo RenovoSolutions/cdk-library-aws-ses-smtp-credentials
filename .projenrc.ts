@@ -3,7 +3,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Renovo Solutions',
   authorAddress: 'webmaster+cdk@renovo1.com',
   projenrcTs: true,
-  cdkVersion: '2.84.0',
+  cdkVersion: '2.202.0',
+  jsiiVersion: '^5.8.0',
   defaultReleaseBranch: 'main',
   name: '@renovosolutions/cdk-library-aws-ses-smtp-credentials',
   description: 'AWS CDK Construct Library for generating SMTP credentials for SES and storing them in Secrets Manager',
@@ -67,7 +68,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   eslint: true,
   publishToPypi: {
     distName: 'renovosolutions.aws-ses-smtp-credentials',
-    module: 'ses-smtp-credentials',
+    module: 'renovosolutions_ses_smtp_credentials',
   },
   publishToNuget: {
     dotNetNamespace: 'renovosolutions',
