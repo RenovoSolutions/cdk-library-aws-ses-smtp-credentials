@@ -146,7 +146,7 @@ export class SesSmtpCredentials extends Construct {
     });
 
     const onEventHandler = new lambda.Function(this, 'OnEventHandler', {
-      runtime: lambda.Runtime.PYTHON_3_9,
+      runtime: lambda.Runtime.PYTHON_3_14,
       handler: 'index.on_event',
       code: lambda.Code.fromAsset(path.join(__dirname, '../lambda')),
       timeout: Duration.seconds(30),
