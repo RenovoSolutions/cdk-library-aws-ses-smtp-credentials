@@ -14,9 +14,9 @@ new SesSmtpCredentials(scope: Construct, id: string, props: SesSmtpCredentialsPr
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-| <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.Initializer.parameter.props">props</a></code> | <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps">SesSmtpCredentialsProps</a></code> | *No description.* |
+| <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | the parent construct. |
+| <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.Initializer.parameter.id">id</a></code> | <code>string</code> | the construct id. |
+| <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.Initializer.parameter.props">props</a></code> | <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps">SesSmtpCredentialsProps</a></code> | the properties of the SMTP credentials. |
 
 ---
 
@@ -24,17 +24,23 @@ new SesSmtpCredentials(scope: Construct, id: string, props: SesSmtpCredentialsPr
 
 - *Type:* constructs.Construct
 
+the parent construct.
+
 ---
 
 ##### `id`<sup>Required</sup> <a name="id" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.Initializer.parameter.id"></a>
 
 - *Type:* string
 
+the construct id.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="props" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.Initializer.parameter.props"></a>
 
 - *Type:* <a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps">SesSmtpCredentialsProps</a>
+
+the properties of the SMTP credentials.
 
 ---
 
@@ -62,7 +68,7 @@ Returns a string representation of this construct.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.isConstruct"></a>
 
 ```typescript
 import { SesSmtpCredentials } from '@renovosolutions/cdk-library-aws-ses-smtp-credentials'
@@ -71,6 +77,20 @@ SesSmtpCredentials.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.isConstruct.parameter.x"></a>
 

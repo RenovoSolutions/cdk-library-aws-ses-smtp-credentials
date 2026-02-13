@@ -17,7 +17,6 @@
     "eslint": "npx projen eslint",
     "package": "npx projen package",
     "package-all": "npx projen package-all",
-    "package:dotnet": "npx projen package:dotnet",
     "package:js": "npx projen package:js",
     "package:python": "npx projen package:python",
     "post-compile": "npx projen post-compile",
@@ -39,30 +38,30 @@
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "^2",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16",
+    "@types/jest": "^30",
+    "@types/node": "^25",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
-    "aws-cdk-lib": "2.202.0",
+    "aws-cdk-lib": "2.238.0",
     "commit-and-tag-version": "^12",
     "constructs": "10.0.5",
     "eslint": "^9",
-    "eslint-import-resolver-typescript": "^3.10.1",
+    "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
-    "jest": "^27.5.1",
+    "jest": "^30",
     "jest-junit": "^16",
-    "jsii": "^5.8.0",
-    "jsii-diff": "^1.112.0",
+    "jsii": "^5.9",
+    "jsii-diff": "^1.126.0",
     "jsii-docgen": "^10.5.0",
-    "jsii-pacmak": "^1.112.0",
-    "jsii-rosetta": "^5.8.0",
-    "projen": "^0.94.0",
-    "ts-jest": "^27.1.5",
+    "jsii-pacmak": "^1.126.0",
+    "jsii-rosetta": "^5.9",
+    "projen": "^0.99.12",
+    "ts-jest": "^29",
     "ts-node": "^10.9.2",
-    "typescript": "^4.9.5"
+    "typescript": "^5"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.202.0",
+    "aws-cdk-lib": "^2.238.0",
     "constructs": "^10.0.5"
   },
   "keywords": [
@@ -114,11 +113,13 @@
         }
       ]
     ],
-    "preset": "ts-jest",
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "tsconfig.dev.json"
-      }
+    "transform": {
+      "^.+\\.[t]sx?$": [
+        "ts-jest",
+        {
+          "tsconfig": "tsconfig.dev.json"
+        }
+      ]
     }
   },
   "types": "lib/index.d.ts",
@@ -129,10 +130,6 @@
       "python": {
         "distName": "renovosolutions.aws-ses-smtp-credentials",
         "module": "renovosolutions_ses_smtp_credentials"
-      },
-      "dotnet": {
-        "namespace": "renovosolutions",
-        "packageId": "Renovo.AWSCDK.AWSSesSmtpCredentials"
       }
     },
     "tsc": {

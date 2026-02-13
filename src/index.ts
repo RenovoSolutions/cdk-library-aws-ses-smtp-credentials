@@ -1,15 +1,15 @@
 import * as path from 'path';
 import {
   aws_iam as iam,
-  custom_resources as cr,
-  CustomResource,
+  aws_kms as kms,
   aws_lambda as lambda,
   aws_secretsmanager as secretsmanager,
+  custom_resources as cr,
+  CustomResource,
   Duration,
   Names,
   Stack,
   Tags,
-  aws_kms as kms,
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
@@ -59,8 +59,15 @@ export class SesSmtpCredentials extends Construct {
    */
   public readonly secret: secretsmanager.ISecret;
 
+  /**
+   * Constructs a new instance of the SesSmtpCredentials class.
+   *
+   * @param scope the parent construct
+   * @param id the construct id
+   * @param props the properties of the SMTP credentials @see SesSmtpCredentialsProps
+   */
   constructor(scope: Construct, id: string, props: SesSmtpCredentialsProps) {
-    super (scope, id);
+    super(scope, id);
 
     const secretName = `${Names.uniqueId(this)}${props.iamUserName}`;
 
@@ -139,7 +146,7 @@ export class SesSmtpCredentials extends Construct {
     });
 
     const onEventHandler = new lambda.Function(this, 'OnEventHandler', {
-      runtime: lambda.Runtime.PYTHON_3_9,
+      runtime: lambda.Runtime.PYTHON_3_14,
       handler: 'index.on_event',
       code: lambda.Code.fromAsset(path.join(__dirname, '../lambda')),
       timeout: Duration.seconds(30),
