@@ -1,6 +1,434 @@
 // Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`Snapshot 1`] = `
+exports[`Snapshot with custom KMS key 1`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "CustomKmsKeyA9BF651B": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "KeyPolicy": {
+          "Statement": [
+            {
+              "Action": "kms:*",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":iam::",
+                      {
+                        "Ref": "AWS::AccountId",
+                      },
+                      ":root",
+                    ],
+                  ],
+                },
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::KMS::Key",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "SesSmtpCredentialsOnEventHandlerBEA768EC": {
+      "DependsOn": [
+        "SesSmtpCredentialsRole6AB00532",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+        },
+        "Handler": "index.on_event",
+        "Role": {
+          "Fn::GetAtt": [
+            "SesSmtpCredentialsRole6AB00532",
+            "Arn",
+          ],
+        },
+        "Runtime": "python3.14",
+        "Timeout": 30,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "SesSmtpCredentialsProviderframeworkonEvent771E2E12": {
+      "DependsOn": [
+        "SesSmtpCredentialsProviderframeworkonEventServiceRoleDefaultPolicy7987CCED",
+        "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+        },
+        "Description": "AWS CDK resource provider framework - onEvent (TestStack/SesSmtpCredentials/Provider)",
+        "Environment": {
+          "Variables": {
+            "USER_ON_EVENT_FUNCTION_ARN": {
+              "Fn::GetAtt": [
+                "SesSmtpCredentialsOnEventHandlerBEA768EC",
+                "Arn",
+              ],
+            },
+          },
+        },
+        "Handler": "framework.onEvent",
+        "LoggingConfig": {
+          "ApplicationLogLevel": "FATAL",
+          "LogFormat": "JSON",
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs22.x",
+        "Timeout": 900,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "SesSmtpCredentialsProviderframeworkonEventServiceRoleDefaultPolicy7987CCED": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "SesSmtpCredentialsOnEventHandlerBEA768EC",
+                    "Arn",
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      {
+                        "Fn::GetAtt": [
+                          "SesSmtpCredentialsOnEventHandlerBEA768EC",
+                          "Arn",
+                        ],
+                      },
+                      ":*",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "lambda:GetFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "SesSmtpCredentialsOnEventHandlerBEA768EC",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "SesSmtpCredentialsProviderframeworkonEventServiceRoleDefaultPolicy7987CCED",
+        "Roles": [
+          {
+            "Ref": "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "SesSmtpCredentialsRole6AB00532": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Ref": "SesSmtpCredentialsSecretsManagerPolicyC597B13A",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "SesSmtpCredentialsSecretArn7500943E": {
+      "DeletionPolicy": "Delete",
+      "DependsOn": [
+        "SesSmtpCredentialsUserE9E5FC46",
+      ],
+      "Properties": {
+        "KmsKeyId": {
+          "Ref": "CustomKmsKeyA9BF651B",
+        },
+        "Override": true,
+        "Region": {
+          "Ref": "AWS::Region",
+        },
+        "Restore": true,
+        "SecretName": "TestStackSesSmtpCredentials1AD8F67EexampleUser",
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "SesSmtpCredentialsProviderframeworkonEvent771E2E12",
+            "Arn",
+          ],
+        },
+        "UserName": "exampleUser",
+      },
+      "Type": "AWS::CloudFormation::CustomResource",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "SesSmtpCredentialsSecretResourcePolicyFA18D550": {
+      "Properties": {
+        "ResourcePolicy": {
+          "Statement": [
+            {
+              "Action": "secretsmanager:GetSecretValue",
+              "Condition": {
+                "ArnLike": {
+                  "aws:SourceArn": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:rds:",
+                        {
+                          "Ref": "AWS::Region",
+                        },
+                        ":",
+                        {
+                          "Ref": "AWS::AccountId",
+                        },
+                        ":og:teststack*",
+                      ],
+                    ],
+                  },
+                },
+                "StringEquals": {
+                  "aws:sourceAccount": [
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                  ],
+                },
+              },
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "rds.amazonaws.com",
+              },
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "SecretId": {
+          "Fn::GetAtt": [
+            "SesSmtpCredentialsSecretArn7500943E",
+            "SecretArn",
+          ],
+        },
+      },
+      "Type": "AWS::SecretsManager::ResourcePolicy",
+    },
+    "SesSmtpCredentialsSecretsManagerPolicyC597B13A": {
+      "Properties": {
+        "Description": "",
+        "Path": "/",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "secretsmanager:PutSecretValue",
+                "secretsmanager:CreateSecret",
+                "secretsmanager:DeleteSecret",
+                "secretsmanager:UpdateSecret",
+                "secretsmanager:TagResource",
+                "secretsmanager:RestoreSecret",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:secretsmanager:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":secret:TestStackSesSmtpCredentials1AD8F67EexampleUser-*",
+                  ],
+                ],
+              },
+              "Sid": "SecretsManagerPolicy",
+            },
+            {
+              "Action": [
+                "iam:CreateAccessKey",
+                "iam:DeleteAccessKey",
+                "iam:ListAccessKeys",
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "iam:ResourceTag/CfnStackIdForSesCredLibrary": {
+                    "Ref": "AWS::StackId",
+                  },
+                },
+              },
+              "Effect": "Allow",
+              "Resource": "*",
+              "Sid": "IamAllowKeyManagementPolicy",
+            },
+            {
+              "Action": [
+                "kms:Encrypt",
+                "kms:Decrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "CustomKmsKeyA9BF651B",
+                  "Arn",
+                ],
+              },
+              "Sid": "KmsAllowKeyManagementPolicy",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::ManagedPolicy",
+    },
+    "SesSmtpCredentialsSesSendPolicyDCC9F0D8": {
+      "Properties": {
+        "Description": "",
+        "Path": "/",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "ses:SendRawEmail",
+              "Effect": "Allow",
+              "Resource": "*",
+              "Sid": "SesAllowSendPolicy",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::ManagedPolicy",
+    },
+    "SesSmtpCredentialsUserE9E5FC46": {
+      "Properties": {
+        "ManagedPolicyArns": [
+          {
+            "Ref": "SesSmtpCredentialsSesSendPolicyDCC9F0D8",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "CfnStackIdForSesCredLibrary",
+            "Value": {
+              "Ref": "AWS::StackId",
+            },
+          },
+        ],
+        "UserName": "exampleUser",
+      },
+      "Type": "AWS::IAM::User",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`Snapshot with default KMS key 1`] = `
 {
   "Parameters": {
     "BootstrapVersion": {
