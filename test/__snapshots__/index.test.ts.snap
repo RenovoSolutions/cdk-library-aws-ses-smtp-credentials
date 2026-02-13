@@ -1,159 +1,29 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Snapshot 1`] = `
-Object {
-  "Mappings": Object {
-    "LatestNodeRuntimeMap": Object {
-      "af-south-1": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-east-1": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-east-2": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-northeast-1": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-northeast-2": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-northeast-3": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-south-1": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-south-2": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-southeast-1": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-southeast-2": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-southeast-3": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-southeast-4": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-southeast-5": Object {
-        "value": "nodejs22.x",
-      },
-      "ap-southeast-7": Object {
-        "value": "nodejs22.x",
-      },
-      "ca-central-1": Object {
-        "value": "nodejs22.x",
-      },
-      "ca-west-1": Object {
-        "value": "nodejs22.x",
-      },
-      "cn-north-1": Object {
-        "value": "nodejs22.x",
-      },
-      "cn-northwest-1": Object {
-        "value": "nodejs22.x",
-      },
-      "eu-central-1": Object {
-        "value": "nodejs22.x",
-      },
-      "eu-central-2": Object {
-        "value": "nodejs22.x",
-      },
-      "eu-isoe-west-1": Object {
-        "value": "nodejs18.x",
-      },
-      "eu-north-1": Object {
-        "value": "nodejs22.x",
-      },
-      "eu-south-1": Object {
-        "value": "nodejs22.x",
-      },
-      "eu-south-2": Object {
-        "value": "nodejs22.x",
-      },
-      "eu-west-1": Object {
-        "value": "nodejs22.x",
-      },
-      "eu-west-2": Object {
-        "value": "nodejs22.x",
-      },
-      "eu-west-3": Object {
-        "value": "nodejs22.x",
-      },
-      "il-central-1": Object {
-        "value": "nodejs22.x",
-      },
-      "me-central-1": Object {
-        "value": "nodejs22.x",
-      },
-      "me-south-1": Object {
-        "value": "nodejs22.x",
-      },
-      "mx-central-1": Object {
-        "value": "nodejs22.x",
-      },
-      "sa-east-1": Object {
-        "value": "nodejs22.x",
-      },
-      "us-east-1": Object {
-        "value": "nodejs22.x",
-      },
-      "us-east-2": Object {
-        "value": "nodejs22.x",
-      },
-      "us-gov-east-1": Object {
-        "value": "nodejs22.x",
-      },
-      "us-gov-west-1": Object {
-        "value": "nodejs22.x",
-      },
-      "us-iso-east-1": Object {
-        "value": "nodejs18.x",
-      },
-      "us-iso-west-1": Object {
-        "value": "nodejs18.x",
-      },
-      "us-isob-east-1": Object {
-        "value": "nodejs18.x",
-      },
-      "us-isob-west-1": Object {
-        "value": "nodejs18.x",
-      },
-      "us-west-1": Object {
-        "value": "nodejs22.x",
-      },
-      "us-west-2": Object {
-        "value": "nodejs22.x",
-      },
-    },
-  },
-  "Parameters": Object {
-    "BootstrapVersion": Object {
+{
+  "Parameters": {
+    "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
       "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
       "Type": "AWS::SSM::Parameter::Value<String>",
     },
   },
-  "Resources": Object {
-    "SesSmtpCredentialsOnEventHandlerBEA768EC": Object {
-      "DependsOn": Array [
+  "Resources": {
+    "SesSmtpCredentialsOnEventHandlerBEA768EC": {
+      "DependsOn": [
         "SesSmtpCredentialsRole6AB00532",
       ],
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "7224866b0a593c509766adc7e7d3386a8672fd9077269c679594700a955d44d1.zip",
+          "S3Key": "d75136a3089f9be3b720b95b7b026b7539fe8a1ca80335fbca767a62941ee2c4.zip",
         },
         "Handler": "index.on_event",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "Role": {
+          "Fn::GetAtt": [
             "SesSmtpCredentialsRole6AB00532",
             "Arn",
           ],
@@ -163,23 +33,23 @@ Object {
       },
       "Type": "AWS::Lambda::Function",
     },
-    "SesSmtpCredentialsProviderframeworkonEvent771E2E12": Object {
-      "DependsOn": Array [
+    "SesSmtpCredentialsProviderframeworkonEvent771E2E12": {
+      "DependsOn": [
         "SesSmtpCredentialsProviderframeworkonEventServiceRoleDefaultPolicy7987CCED",
         "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB",
       ],
-      "Properties": Object {
-        "Code": Object {
-          "S3Bucket": Object {
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "bdc104ed9cab1b5b6421713c8155f0b753380595356f710400609664d3635eca.zip",
+          "S3Key": "07a90cc3efdfc34da22208dcd9d211f06f5b0e01b21e778edc7c3966b1f61d57.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (TestStack/SesSmtpCredentials/Provider)",
-        "Environment": Object {
-          "Variables": Object {
-            "USER_ON_EVENT_FUNCTION_ARN": Object {
-              "Fn::GetAtt": Array [
+        "Environment": {
+          "Variables": {
+            "USER_ON_EVENT_FUNCTION_ARN": {
+              "Fn::GetAtt": [
                 "SesSmtpCredentialsOnEventHandlerBEA768EC",
                 "Arn",
               ],
@@ -187,46 +57,42 @@ Object {
           },
         },
         "Handler": "framework.onEvent",
-        "Role": Object {
-          "Fn::GetAtt": Array [
+        "LoggingConfig": {
+          "ApplicationLogLevel": "FATAL",
+          "LogFormat": "JSON",
+        },
+        "Role": {
+          "Fn::GetAtt": [
             "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB",
             "Arn",
           ],
         },
-        "Runtime": Object {
-          "Fn::FindInMap": Array [
-            "LatestNodeRuntimeMap",
-            Object {
-              "Ref": "AWS::Region",
-            },
-            "value",
-          ],
-        },
+        "Runtime": "nodejs22.x",
         "Timeout": 900,
       },
       "Type": "AWS::Lambda::Function",
     },
-    "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": Array [
-          Object {
-            "Fn::Join": Array [
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
               "",
-              Array [
+              [
                 "arn:",
-                Object {
+                {
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
@@ -237,26 +103,26 @@ Object {
       },
       "Type": "AWS::IAM::Role",
     },
-    "SesSmtpCredentialsProviderframeworkonEventServiceRoleDefaultPolicy7987CCED": Object {
-      "Properties": Object {
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "SesSmtpCredentialsProviderframeworkonEventServiceRoleDefaultPolicy7987CCED": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "lambda:InvokeFunction",
               "Effect": "Allow",
-              "Resource": Array [
-                Object {
-                  "Fn::GetAtt": Array [
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
                     "SesSmtpCredentialsOnEventHandlerBEA768EC",
                     "Arn",
                   ],
                 },
-                Object {
-                  "Fn::Join": Array [
+                {
+                  "Fn::Join": [
                     "",
-                    Array [
-                      Object {
-                        "Fn::GetAtt": Array [
+                    [
+                      {
+                        "Fn::GetAtt": [
                           "SesSmtpCredentialsOnEventHandlerBEA768EC",
                           "Arn",
                         ],
@@ -267,11 +133,11 @@ Object {
                 },
               ],
             },
-            Object {
+            {
               "Action": "lambda:GetFunction",
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::GetAtt": Array [
+              "Resource": {
+                "Fn::GetAtt": [
                   "SesSmtpCredentialsOnEventHandlerBEA768EC",
                   "Arn",
                 ],
@@ -281,51 +147,51 @@ Object {
           "Version": "2012-10-17",
         },
         "PolicyName": "SesSmtpCredentialsProviderframeworkonEventServiceRoleDefaultPolicy7987CCED",
-        "Roles": Array [
-          Object {
+        "Roles": [
+          {
             "Ref": "SesSmtpCredentialsProviderframeworkonEventServiceRoleCEC286EB",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "SesSmtpCredentialsRole6AB00532": Object {
-      "Properties": Object {
-        "AssumeRolePolicyDocument": Object {
-          "Statement": Array [
-            Object {
+    "SesSmtpCredentialsRole6AB00532": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
               "Action": "sts:AssumeRole",
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "lambda.amazonaws.com",
               },
             },
           ],
           "Version": "2012-10-17",
         },
-        "ManagedPolicyArns": Array [
-          Object {
+        "ManagedPolicyArns": [
+          {
             "Ref": "SesSmtpCredentialsSecretsManagerPolicyC597B13A",
           },
         ],
       },
       "Type": "AWS::IAM::Role",
     },
-    "SesSmtpCredentialsSecretArn7500943E": Object {
+    "SesSmtpCredentialsSecretArn7500943E": {
       "DeletionPolicy": "Delete",
-      "DependsOn": Array [
+      "DependsOn": [
         "SesSmtpCredentialsUserE9E5FC46",
       ],
-      "Properties": Object {
+      "Properties": {
         "KmsKeyId": "alias/aws/secretsmanager",
         "Override": true,
-        "Region": Object {
+        "Region": {
           "Ref": "AWS::Region",
         },
         "Restore": true,
         "SecretName": "TestStackSesSmtpCredentials1AD8F67EexampleUser",
-        "ServiceToken": Object {
-          "Fn::GetAtt": Array [
+        "ServiceToken": {
+          "Fn::GetAtt": [
             "SesSmtpCredentialsProviderframeworkonEvent771E2E12",
             "Arn",
           ],
@@ -335,24 +201,24 @@ Object {
       "Type": "AWS::CloudFormation::CustomResource",
       "UpdateReplacePolicy": "Delete",
     },
-    "SesSmtpCredentialsSecretResourcePolicyFA18D550": Object {
-      "Properties": Object {
-        "ResourcePolicy": Object {
-          "Statement": Array [
-            Object {
+    "SesSmtpCredentialsSecretResourcePolicyFA18D550": {
+      "Properties": {
+        "ResourcePolicy": {
+          "Statement": [
+            {
               "Action": "secretsmanager:GetSecretValue",
-              "Condition": Object {
-                "ArnLike": Object {
-                  "aws:SourceArn": Object {
-                    "Fn::Join": Array [
+              "Condition": {
+                "ArnLike": {
+                  "aws:SourceArn": {
+                    "Fn::Join": [
                       "",
-                      Array [
+                      [
                         "arn:aws:rds:",
-                        Object {
+                        {
                           "Ref": "AWS::Region",
                         },
                         ":",
-                        Object {
+                        {
                           "Ref": "AWS::AccountId",
                         },
                         ":og:teststack*",
@@ -360,16 +226,16 @@ Object {
                     ],
                   },
                 },
-                "StringEquals": Object {
-                  "aws:sourceAccount": Array [
-                    Object {
+                "StringEquals": {
+                  "aws:sourceAccount": [
+                    {
                       "Ref": "AWS::AccountId",
                     },
                   ],
                 },
               },
               "Effect": "Allow",
-              "Principal": Object {
+              "Principal": {
                 "Service": "rds.amazonaws.com",
               },
               "Resource": "*",
@@ -377,8 +243,8 @@ Object {
           ],
           "Version": "2012-10-17",
         },
-        "SecretId": Object {
-          "Fn::GetAtt": Array [
+        "SecretId": {
+          "Fn::GetAtt": [
             "SesSmtpCredentialsSecretArn7500943E",
             "SecretArn",
           ],
@@ -386,14 +252,14 @@ Object {
       },
       "Type": "AWS::SecretsManager::ResourcePolicy",
     },
-    "SesSmtpCredentialsSecretsManagerPolicyC597B13A": Object {
-      "Properties": Object {
+    "SesSmtpCredentialsSecretsManagerPolicyC597B13A": {
+      "Properties": {
         "Description": "",
         "Path": "/",
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
-              "Action": Array [
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
                 "secretsmanager:PutSecretValue",
                 "secretsmanager:CreateSecret",
                 "secretsmanager:DeleteSecret",
@@ -402,16 +268,16 @@ Object {
                 "secretsmanager:RestoreSecret",
               ],
               "Effect": "Allow",
-              "Resource": Object {
-                "Fn::Join": Array [
+              "Resource": {
+                "Fn::Join": [
                   "",
-                  Array [
+                  [
                     "arn:aws:secretsmanager:",
-                    Object {
+                    {
                       "Ref": "AWS::Region",
                     },
                     ":",
-                    Object {
+                    {
                       "Ref": "AWS::AccountId",
                     },
                     ":secret:TestStackSesSmtpCredentials1AD8F67EexampleUser-*",
@@ -420,15 +286,15 @@ Object {
               },
               "Sid": "SecretsManagerPolicy",
             },
-            Object {
-              "Action": Array [
+            {
+              "Action": [
                 "iam:CreateAccessKey",
                 "iam:DeleteAccessKey",
                 "iam:ListAccessKeys",
               ],
-              "Condition": Object {
-                "StringEquals": Object {
-                  "iam:ResourceTag/CfnStackIdForSesCredLibrary": Object {
+              "Condition": {
+                "StringEquals": {
+                  "iam:ResourceTag/CfnStackIdForSesCredLibrary": {
                     "Ref": "AWS::StackId",
                   },
                 },
@@ -443,13 +309,13 @@ Object {
       },
       "Type": "AWS::IAM::ManagedPolicy",
     },
-    "SesSmtpCredentialsSesSendPolicyDCC9F0D8": Object {
-      "Properties": Object {
+    "SesSmtpCredentialsSesSendPolicyDCC9F0D8": {
+      "Properties": {
         "Description": "",
         "Path": "/",
-        "PolicyDocument": Object {
-          "Statement": Array [
-            Object {
+        "PolicyDocument": {
+          "Statement": [
+            {
               "Action": "ses:SendRawEmail",
               "Effect": "Allow",
               "Resource": "*",
@@ -461,17 +327,17 @@ Object {
       },
       "Type": "AWS::IAM::ManagedPolicy",
     },
-    "SesSmtpCredentialsUserE9E5FC46": Object {
-      "Properties": Object {
-        "ManagedPolicyArns": Array [
-          Object {
+    "SesSmtpCredentialsUserE9E5FC46": {
+      "Properties": {
+        "ManagedPolicyArns": [
+          {
             "Ref": "SesSmtpCredentialsSesSendPolicyDCC9F0D8",
           },
         ],
-        "Tags": Array [
-          Object {
+        "Tags": [
+          {
             "Key": "CfnStackIdForSesCredLibrary",
-            "Value": Object {
+            "Value": {
               "Ref": "AWS::StackId",
             },
           },
@@ -481,22 +347,22 @@ Object {
       "Type": "AWS::IAM::User",
     },
   },
-  "Rules": Object {
-    "CheckBootstrapVersion": Object {
-      "Assertions": Array [
-        Object {
-          "Assert": Object {
-            "Fn::Not": Array [
-              Object {
-                "Fn::Contains": Array [
-                  Array [
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
                     "1",
                     "2",
                     "3",
                     "4",
                     "5",
                   ],
-                  Object {
+                  {
                     "Ref": "BootstrapVersion",
                   },
                 ],

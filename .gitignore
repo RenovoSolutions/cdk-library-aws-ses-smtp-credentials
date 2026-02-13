@@ -29,6 +29,7 @@ jspm_packages/
 *.tgz
 .yarn-integrity
 .cache
+**/__pycache__/**
 /test-reports/
 junit.xml
 /coverage/

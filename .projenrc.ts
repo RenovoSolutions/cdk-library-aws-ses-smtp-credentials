@@ -3,8 +3,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Renovo Solutions',
   authorAddress: 'webmaster+cdk@renovo1.com',
   projenrcTs: true,
-  cdkVersion: '2.202.0',
-  jsiiVersion: '^5.8.0',
+  cdkVersion: '2.238.0',
+  jsiiVersion: '^5.9',
   defaultReleaseBranch: 'main',
   name: '@renovosolutions/cdk-library-aws-ses-smtp-credentials',
   description: 'AWS CDK Construct Library for generating SMTP credentials for SES and storing them in Secrets Manager',
@@ -72,10 +72,20 @@ const project = new awscdk.AwsCdkConstructLibrary({
     distName: 'renovosolutions.aws-ses-smtp-credentials',
     module: 'renovosolutions_ses_smtp_credentials',
   },
-  publishToNuget: {
-    dotNetNamespace: 'renovosolutions',
-    packageId: 'Renovo.AWSCDK.AWSSesSmtpCredentials',
+  gitignore: ['**/__pycache__/**'],
+  tsconfigDev: {
+    compilerOptions: {
+      isolatedModules: true,
+    },
   },
+});
+
+project.eslint?.addRules({
+  '@typescript-eslint/no-unused-vars': ['error', {
+    argsIgnorePattern: '^_',
+    varsIgnorePattern: '^_',
+    caughtErrorsIgnorePattern: '^_',
+  }],
 });
 
 new javascript.UpgradeDependencies(project, {

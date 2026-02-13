@@ -1,6 +1,6 @@
 import {
-  Stack,
   App,
+  Stack,
   aws_iam as iam,
 } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
