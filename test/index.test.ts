@@ -34,5 +34,19 @@ test('Snapshot', () => {
     }),
   });
 
-  expect(Template.fromStack(stack)).toMatchSnapshot();
+  const template = Template.fromStack(stack);
+  const json = template.toJSON();
+  const deletes = Object.assign({},
+    template.findResources('Custom::CDKBucketDeployment'),
+    template.findResources('AWS::Lambda::Function'),
+  );
+  const deleteKeys = Object.keys(deletes);
+  deleteKeys.forEach((key) => {
+    delete json.Resources[key].Properties.SourceObjectKeys;
+    if (json.Resources[key].Properties.Code) {
+      delete json.Resources[key].Properties.Code.S3Key;
+    }
+  });
+
+  expect(json).toMatchSnapshot();
 });

@@ -19,7 +19,6 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "d75136a3089f9be3b720b95b7b026b7539fe8a1ca80335fbca767a62941ee2c4.zip",
         },
         "Handler": "index.on_event",
         "Role": {
@@ -28,7 +27,7 @@ exports[`Snapshot 1`] = `
             "Arn",
           ],
         },
-        "Runtime": "python3.9",
+        "Runtime": "python3.14",
         "Timeout": 30,
       },
       "Type": "AWS::Lambda::Function",
@@ -43,7 +42,6 @@ exports[`Snapshot 1`] = `
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "07a90cc3efdfc34da22208dcd9d211f06f5b0e01b21e778edc7c3966b1f61d57.zip",
         },
         "Description": "AWS CDK resource provider framework - onEvent (TestStack/SesSmtpCredentials/Provider)",
         "Environment": {
