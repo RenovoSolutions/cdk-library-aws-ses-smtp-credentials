@@ -68,7 +68,7 @@ Returns a string representation of this construct.
 
 ---
 
-##### `isConstruct` <a name="isConstruct" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.isConstruct"></a>
+##### ~~`isConstruct`~~ <a name="isConstruct" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.isConstruct"></a>
 
 ```typescript
 import { SesSmtpCredentials } from '@renovosolutions/cdk-library-aws-ses-smtp-credentials'
@@ -77,20 +77,6 @@ SesSmtpCredentials.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
-
-Use this method instead of `instanceof` to properly detect `Construct`
-instances, even when the construct library is symlinked.
-
-Explanation: in JavaScript, multiple copies of the `constructs` library on
-disk are seen as independent, completely different libraries. As a
-consequence, the class `Construct` in each copy of the `constructs` library
-is seen as a different class, and an instance of one class will not test as
-`instanceof` the other class. `npm install` will not create installations
-like this, but users may manually symlink construct libraries together or
-use a monorepo tool: in those cases, multiple copies of the `constructs`
-library can be accidentally installed, and `instanceof` will behave
-unpredictably. It is safest to avoid using `instanceof`, and using
-this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentials.isConstruct.parameter.x"></a>
 
@@ -169,6 +155,7 @@ const sesSmtpCredentialsProps: SesSmtpCredentialsProps = { ... }
 | <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.kmsKey">kmsKey</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | The KMS key to use for the secret. |
 | <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.overwriteSecret">overwriteSecret</a></code> | <code>boolean</code> | If a secret already exists should it be overwritten? |
 | <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.restoreSecret">restoreSecret</a></code> | <code>boolean</code> | If a secret is pending deletion should it be restored? |
+| <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.rotationVersion">rotationVersion</a></code> | <code>number</code> | Increment this value to trigger rotation of the SMTP credentials. |
 | <code><a href="#@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.secretResourcePolicy">secretResourcePolicy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyDocument</code> | The resource policy to apply to the resulting secret. |
 
 ---
@@ -225,6 +212,26 @@ public readonly restoreSecret: boolean;
 If a secret is pending deletion should it be restored?
 
 This helps in cases where cloudformation roll backs puts a secret in pending delete state.
+
+---
+
+##### `rotationVersion`<sup>Optional</sup> <a name="rotationVersion" id="@renovosolutions/cdk-library-aws-ses-smtp-credentials.SesSmtpCredentialsProps.property.rotationVersion"></a>
+
+```typescript
+public readonly rotationVersion: number;
+```
+
+- *Type:* number
+- *Default:* not set; no rotation triggered on library upgrade
+
+Increment this value to trigger rotation of the SMTP credentials.
+
+Each change creates a new IAM access key, derives a new SMTP password,
+updates the secret, and deletes the old key.
+
+When not set, no RotationVersion property is included in the Custom Resource,
+so upgrading the library without setting this prop will not trigger an
+unintended rotation on existing deployments.
 
 ---
 

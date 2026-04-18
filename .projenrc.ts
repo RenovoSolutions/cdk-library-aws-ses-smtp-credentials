@@ -7,6 +7,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   jsiiVersion: '^5.9',
   defaultReleaseBranch: 'main',
   name: '@renovosolutions/cdk-library-aws-ses-smtp-credentials',
+  packageManager: javascript.NodePackageManager.PNPM,
   description: 'AWS CDK Construct Library for generating SMTP credentials for SES and storing them in Secrets Manager',
   repositoryUrl: 'https://github.com/brandon/cdk-library-aws-ses-smtp-credentials.git',
   keywords: [

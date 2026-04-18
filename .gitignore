@@ -36,6 +36,7 @@ junit.xml
 /dist/changelog.md
 /dist/version.txt
 !/.github/pull_request_template.md
+!/.npmrc
 !/test/
 !/tsconfig.dev.json
 !/src/
