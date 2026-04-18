@@ -47,6 +47,18 @@ export interface SesSmtpCredentialsProps {
    * @default - default key
    */
   readonly kmsKey?: kms.IKey;
+  /**
+   * Increment this value to trigger rotation of the SMTP credentials.
+   * Each change creates a new IAM access key, derives a new SMTP password,
+   * updates the secret, and deletes the old key.
+   *
+   * When not set, no RotationVersion property is included in the Custom Resource,
+   * so upgrading the library without setting this prop will not trigger an
+   * unintended rotation on existing deployments.
+   *
+   * @default - not set; no rotation triggered on library upgrade
+   */
+  readonly rotationVersion?: number;
 }
 
 export class SesSmtpCredentials extends Construct {
@@ -166,6 +178,7 @@ export class SesSmtpCredentials extends Construct {
         Override: props.overwriteSecret ?? true,
         Restore: props.restoreSecret ?? true,
         KmsKeyId: props.kmsKey == undefined ? 'alias/aws/secretsmanager' : props.kmsKey.keyId,
+        ...(props.rotationVersion !== undefined && { RotationVersion: props.rotationVersion }),
       },
     });
 
