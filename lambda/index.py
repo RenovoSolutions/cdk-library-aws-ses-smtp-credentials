@@ -273,7 +273,7 @@ def on_update(event) -> CustomResourceResponse:
         except Exception as e:
             print(f"Warning: could not clean up old access key: {e}")
         return {
-            "PhysicalResourceId": "%s/%s" % (props["UserName"], secret["accessKeyId"]),
+            "PhysicalResourceId": physical_id,
             "Data": {
                 "AccessKeyId": secret["accessKeyId"],
                 "SecretArn": secret["response"]["ARN"],
